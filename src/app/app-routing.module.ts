@@ -9,8 +9,22 @@ const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadChildren: () => import('./recipes/recipes.module').then( m => m.RecipesPageModule)
+
+    children:[
+      {
+       path:'',
+       loadChildren: () => import('./recipes/recipes.module').then( m => m.RecipesPageModule),
+      },
+      {
+       path:':recipeId',
+       loadChildren:()=>import('./recipes/recipe-detail/recipe-detail.module').then(m=>m.RecipeDetailPageModule),
+      }
+    ]
   },
+  {
+    path:'recipe-detail',
+    loadChildren:()=>import('./recipes/recipe-detail/recipe-detail.module').then(m=>m.RecipeDetailPageModule)
+  }
 ];
 
 @NgModule({
